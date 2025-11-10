@@ -1,4 +1,5 @@
 import unittest
+import re  # add this at the top
 from app import app
 
 class AppTestCase(unittest.TestCase):
@@ -25,10 +26,12 @@ class AppTestCase(unittest.TestCase):
         }
         response = self.app.post('/parse', json=payload)
         self.assertEqual(response.status_code, 200)
-        self.assertIn('provider "aws"', response.data.decode())
-        self.assertIn('region = "us-west-2"', response.data.decode())
-        self.assertIn('bucket        = "test-bucket"', response.data.decode())
-        self.assertIn('acl = "public-read"', response.data.decode())
+        content = response.data.decode()
+    
+        self.assertIn('provider "aws"', content)
+        self.assertIn('region = "us-west-2"', content)
+        self.assertIn('bucket        = "test-bucket"', content)
+        self.assertRegex(content, r'acl\s*=\s*"public-read"')
 
 if __name__ == '__main__':
     unittest.main()
