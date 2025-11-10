@@ -1,5 +1,18 @@
-- Part 1 (API Service): Describe how you implemented the `Terraform-Parse` service. Include the framework/language you chose, how the API works, and how it translates the payload into Terraform code.
-- Part 2 (Terraform): Describe the issues you found and how you approached improving them. Mention anything you think could still be enhanced.
-- Part 3 (Helm): Explain the problems you encountered with the chart, how you addressed them, and how you validated your changes.
-- Part 4 (System Behavior): Share your thoughts on how this setup might behave under load or in failure scenarios, and what strategies could make it more resilient in the long term.
-- Part 5 (Approach & Tools): Outline the approach you took to complete the task, including any resources, tools, or methods that supported your work.
+# Notes
+
+## API Service Creation
+The backend service is built using Flask. It receives a JSON payload and generates a Terraform file for an S3 bucket.
+
+## Terraform Fixes
+- Parameterized the S3 bucket name and ACL.
+- Improved modularity for multi-environment support.
+
+## Helm Fixes
+- Updated backend deployment to use the Flask app image.
+- Corrected frontend service selector.
+
+## Multi-Environment Thoughts
+Consider using Terraform workspaces or separate variable files for different environments.
+
+## AI Usage
+AI was used to assist in code refactoring and documentation.

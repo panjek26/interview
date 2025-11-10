@@ -9,16 +9,26 @@ variable "cluster_name" {
 }
 
 variable "vpc_id" {
-  type = string
-  default = ""
+  type        = string
+  description = "The VPC ID where the EKS cluster will be deployed."
 }
 
 variable "subnet_ids" {
-  type = list(string)
-  default = []
+  type        = list(string)
+  description = "A list of subnet IDs for the EKS cluster."
+}
+
+variable "bucket_name" {
+  type    = string
+  default = "tripla-static-assets"
+}
+
+variable "acl" {
+  type    = string
+  default = "private"
 }
 
 variable "environment" {
-  type    = string
-  default = "dev"
+  type        = string
+  description = "Environment name, e.g., dev, staging, prod"
 }

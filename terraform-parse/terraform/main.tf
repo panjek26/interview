@@ -1,5 +1,6 @@
 terraform {
   required_version = ">= 1.0.0"
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -12,30 +13,38 @@ provider "aws" {
   region = var.aws_region
 }
 
+locals {
+  env = terraform.workspace == "prod" ? "production" : "non-production"
+}
+
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.0.0"
 
-  cluster_name    = var.cluster_name
+  cluster_name    = "${terraform.workspace}-${var.cluster_name}"
   cluster_version = "1.25"
   vpc_id          = var.vpc_id
   subnet_ids      = var.subnet_ids
-  node_groups = {
+
+  eks_managed_node_groups = {
     default = {
-      desired_capacity = 2
-      instance_type    = "t3.medium"
+      desired_size   = 2
+      min_size       = 1
+      max_size       = 3
+      instance_types = ["t3.medium"]
     }
   }
 
   tags = {
-    Environment = var.environment
+    Environment = local.env
   }
 }
 
 resource "aws_s3_bucket" "static_assets" {
-  bucket = "tripla-static-assets"
-  acl    = "public-read"
+  bucket = "${terraform.workspace}-${var.bucket_name}"
+  acl    = var.acl
+
   tags = {
-    Env = var.environment
+    Env = local.env
   }
 }
