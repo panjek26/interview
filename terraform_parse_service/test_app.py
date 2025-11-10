@@ -27,7 +27,7 @@ class AppTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn('provider "aws"', response.data.decode())
         self.assertIn('region = "us-west-2"', response.data.decode())
-        self.assertIn('bucket = "test-bucket"', response.data.decode())
+        self.assertIn('bucket        = "test-bucket"', response.data.decode())
         self.assertIn('acl = "public-read"', response.data.decode())
 
 if __name__ == '__main__':
