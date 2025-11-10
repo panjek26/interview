@@ -38,9 +38,8 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        cd terraform_parse_service
-        docker build -t $DOCKER_USERNAME/be-terraform-parse-service:latest -f terraform_parse_service/Dockerfile .
-        docker build -t $DOCKER_USERNAME/fe-terraform-parse:latest -f terraform_parse_service/Dockerfile.frontend .
+        docker build -t $DOCKER_USERNAME/be-terraform-parse-service:latest -f terraform_parse_service/Dockerfile terraform_parse_service
+        docker build -t $DOCKER_USERNAME/fe-terraform-parse:latest -f terraform_parse_service/Dockerfile.frontend terraform_parse_service
         docker push $DOCKER_USERNAME/be-terraform-parse-service:latest
         docker push $DOCKER_USERNAME/fe-terraform-parse:latest
       env:
