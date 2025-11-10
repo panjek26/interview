@@ -5,7 +5,6 @@ metadata:
   labels:
     {{- include "tripla-apps.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: frontend

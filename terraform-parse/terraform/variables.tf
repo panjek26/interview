@@ -1,34 +1,53 @@
 variable "aws_region" {
-  type    = string
-  default = "ap-northeast-1"
+  description = "AWS region per environment"
+  type        = map(string)
+  default = {
+    nonprod = "ap-northeast-1"
+    prod    = "ap-northeast-1"
+  }
 }
 
 variable "cluster_name" {
-  type    = string
-  default = "tripla-messy-eks"
+  description = "EKS cluster name per environment"
+  type        = map(string)
+  default = {
+    nonprod = "tripla-messy-eks-nonprod"
+    prod    = "tripla-messy-eks-prod"
+  }
 }
 
 variable "vpc_id" {
-  type        = string
-  description = "The VPC ID where the EKS cluster will be deployed."
+  description = "VPC ID per environment"
+  type        = map(string)
+  default = {
+    nonprod = "vpc-nonprod-1234556"
+    prod    = "vpc-prod-1234556"
+  }
 }
 
 variable "subnet_ids" {
-  type        = list(string)
-  description = "A list of subnet IDs for the EKS cluster."
+  description = "Subnet IDs per environment"
+  type        = map(list(string))
+  default = {
+    nonprod = ["subnet-nonprod-1", "subnet-nonprod-2"]
+    prod    = ["subnet-prod-1", "subnet-prod-2"]
+  }
 }
 
 variable "bucket_name" {
-  type    = string
-  default = "tripla-static-assets"
-}
-
-variable "acl" {
-  type    = string
-  default = "private"
+  description = "S3 bucket name per environment"
+  type        = map(string)
+  default = {
+    nonprod = "tripla-static-assets-nonprod"
+    prod    = "tripla-static-assets-prod"
+  }
 }
 
 variable "environment" {
-  type        = string
-  description = "Environment name, e.g., dev, staging, prod"
+  description = "Environment name (nonprod or prod)"
+  type        = map(string)
+  default = {
+    nonprod = "nonprod"
+    prod    = "prod"
+  }
 }

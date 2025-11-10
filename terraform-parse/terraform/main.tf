@@ -1,30 +1,15 @@
-terraform {
-  required_version = ">= 1.0.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = var.aws_region
-}
-
 locals {
-  env = terraform.workspace == "prod" ? "production" : "non-production"
+  env = terraform.workspace == "prod" ? "prod" : "non-production"
 }
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "19.0.0"
+  version = "20.1.0"
 
-  cluster_name    = "${terraform.workspace}-${var.cluster_name}"
+  cluster_name    = "${terraform.workspace}-${lookup(var.cluster_name, terraform.workspace)}"
   cluster_version = "1.25"
-  vpc_id          = var.vpc_id
-  subnet_ids      = var.subnet_ids
+  vpc_id          = lookup(var.vpc_id, terraform.workspace)
+  subnet_ids      = lookup(var.subnet_ids, terraform.workspace)
 
   eks_managed_node_groups = {
     default = {
@@ -41,10 +26,14 @@ module "eks" {
 }
 
 resource "aws_s3_bucket" "static_assets" {
-  bucket = "${terraform.workspace}-${var.bucket_name}"
-  acl    = var.acl
+  bucket = "${terraform.workspace}-${lookup(var.bucket_name, terraform.workspace)}"
 
   tags = {
     Env = local.env
   }
+}
+
+resource "aws_s3_bucket_acl" "static_assets_acl" {
+  bucket = aws_s3_bucket.static_assets.id
+  acl    = "private"
 }
