@@ -44,7 +44,7 @@ curl http://<frontend-ip>/api/health
 - Use separate `values.yaml` per environment.
 - Keep backend host and port dynamic via Helm templating.
 - Apply readiness and liveness probes for both services.
-- Manage version tags clearly (v0.0.x).
+- Manage version tags clearly (v0.0.x), using SemVer (Semantic Version)
 
 # Terraform Fixes
 
