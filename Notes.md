@@ -4,7 +4,7 @@
 
 The API service is structured as a two-component system:
 
-- **Frontend**: React/Next.js application containerized in Docker (`panjek266/apps-fe`).
+- **Frontend**: nginx application containerized in Docker (`panjek266/apps-fe`).
 - **Backend**: Python FastAPI service containerized in Docker (`panjek266/python-be`).
 
 Both are deployed using Helm charts within Kubernetes.
