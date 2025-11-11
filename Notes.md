@@ -36,7 +36,7 @@ helm install tripla-apps ./charts -f values-dev.yaml
 Verify connectivity:
 
 ```bash
-curl http://<frontend-ip>/
+curl http://<frontend-ip>/api/health
 ```
 
 ## Best Practices
