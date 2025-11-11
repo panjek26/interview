@@ -128,12 +128,12 @@ helm upgrade --install tripla-apps ./charts -f values-prod.yaml --namespace prod
 
 # AI Usage Summary
 
-AI assistance (ChatGPT) was used for:
+AI assistance (Claude) was used for:
 
-- Refactoring Terraform code to support multiple environments.
-- Updating EKS module to latest best practices.
-- Drafting Helm templating and environment separation.
-- Generating structured documentation and explanations.
-- Ensuring naming consistency, tagging, and maintainable structure.
+- Reviewing and validating Terraform for multi-environment scalability.
+- Cross-verifying EKS module configuration and provider compatibility.
+- Streamlining Helm value structure and templating patterns.
+- Generating well-documented summaries for infrastructure and deployment workflows.
+- Ensuring consistent naming, tagging, and environment conventions.
 
 AI output was verified manually before applying to production infrastructure.
