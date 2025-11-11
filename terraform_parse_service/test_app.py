@@ -1,5 +1,5 @@
 import unittest
-import re  # add this at the top
+import re
 from app import app
 
 class AppTestCase(unittest.TestCase):
