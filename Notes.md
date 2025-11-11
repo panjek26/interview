@@ -11,8 +11,8 @@ Both are deployed using Helm charts within Kubernetes.
 
 ## Configuration
 
-- **Frontend** connects to the backend through environment variables defined in Helm values:
-  - `backendHost`: backend-svc
+- **Frontend** connects to the backend through nginx-frontend.conf:
+  - `backendHost`: tripla-apps-backend-svc
   - `backendPort`: 8080
 
 - **Frontend Service type**: LoadBalancer (external access)
